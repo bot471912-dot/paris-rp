@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Wiki - Mon Jeu Roblox</title>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+
+<style>
+body{
+
+/* ===== HISTOIRE STYLE DISCORD ===== */
+
+.chapter {
+  background:#2b2d31;
+  border-radius:10px;
+  margin-bottom:12px;
+  border:1px solid #1f2023;
+}
+
+.chapter-header {
+  padding:15px;
+  cursor:pointer;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  font-weight:bold;
+  transition:0.2s;
+}
+
+.chapter-header:hover{
+  background:#313338;
+}
+
+.chapter-content{
+  max-height:0;
+  overflow:hidden;
+  transition:all 0.3s ease;
+  padding:0 15px;
+  color:#cdd6f4;
+}
+
+.chapter.active .chapter-content{
+  max-height:300px;
+  padding:15px;
+  border-top:1px solid #1f2023;
+  background:#232428;
+}
+
+  margin:0;
+  font-family:Arial, sans-serif;
+  background:#0f172a;
+  color:white;
+  display:flex;
+}
+
+/* ===== SIDEBAR ===== */
+.sidebar{
+  width:220px;
+  background:#111827;
+  height:100vh;
+  display:flex;
+  flex-direction:column;
+  padding:20px 0;
+}
+
+.sidebar h2{
+  text-align:center;
+  color:#22d3ee;
+  margin-bottom:20px;
+}
+
+.menu{
+  display:flex;
+  flex-direction:column;
+  gap:15px;
+  padding:0 20px;
+}
+
+.menu button{
+  background:#1e293b;
+  border:none;
+  color:white;
+  padding:12px;
+  border-radius:8px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  cursor:pointer;
+  transition:0.2s;
+}
+
+.menu button:hover{
+  background:#22d3ee;
+  color:black;
+}
+
+.separator{
+  height:1px;
+  background:#334155;
+  margin:20px 20px;
+}
+
+/* ===== MAIN ===== */
+.main{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+}
+
+header{
+  background:#111827;
+  padding:15px 30px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.logo{
+  font-size:22px;
+  font-weight:bold;
+  color:#22d3ee;
+}
+
+.login-btn{
+  background:#5865F2;
+  color:white;
+  padding:10px 18px;
+  border:none;
+  border-radius:8px;
+  cursor:pointer;
+  font-weight:bold;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  transition:0.2s;
+}
+
+.login-btn:hover{
+  background:#4752C4;
+}
+
+.container{
+  padding:40px;
+}
+
+.content-section{
+  display:none;
+}
+
+.content-section.active{
+  display:block;
+}
+
+.card{
+  background:#1e293b;
+  padding:20px;
+  border-radius:12px;
+  margin-bottom:20px;
+}
+
+.card{
+  background:#1e293b;
+  padding:20px;
+  border-radius:12px;
+  margin-bottom:20px;
+}
+
+.logs{
+  background:#1e293b;
+  padding:20px;
+  border-radius:12px;
+  margin-bottom:20px;
+}
+
+
+/* Images */
+.section-image{
+  width:100%;
+  max-width:500px;
+  border-radius:10px;
+  margin-top:15px;
+}
+
+.weapon-logo{
+  width:80px;
+  margin-bottom:10px;
+}
+</style>
+</head>
+<body>
+
+
+<div class="sidebar">
+  <h2>Wiki</h2>
+
+  <div class="menu">
+    <button onclick="showSection('accueil')">
+      <i class="fa-solid fa-house"></i> Accueil
+    </button>
+  </div>
+
+  <div class="separator"></div>
+
+  <div class="menu">
+
+    <button onclick="showSection('histoire')">
+
+      <i class="fa-solid fa-book"></i> Histoire
+  </button>
+
+<button onclick="showSection('armes')">
+  <i class="fa-solid fa-box-open"></i> Items
+</button>
+
+    <button onclick="showSection('carte')">
+      <i class="fa-solid fa-map"></i> Carte
+    </button>
+
+  <button onclick="showSection('logs')">
+      <i class="fa-solid fa-code"></i> Logs
+    </button>
+
+    <button onclick="showSection('communaute')">
+      <i class="fa-solid fa-users"></i> Communauté
+    </button>
+  </div>
+</div>
+
+<div class="main">
+
+<header>
+  <div class="logo">Wiki ParisRP</div>
+  <a href="/login">
+    <button class="login-btn">
+      <i class="fa-solid fa-user"></i>
+      Connexion
+    </button>
+  </a>
+</header>
+
+<div class="container">
+
+  <div id="accueil" class="content-section active">
+    <div class="card">
+      <h1>Bienvenue</h1>
+      <p>Bienvenue sur le wiki officiel de notre jeu Roblox.</p>
+      <p></p>
+    </div>
+  </div>
+
+<div id="histoire" class="content-section">
+  <div class="card">
+    <h1>Histoire</h1>
+
+    <div class="chapter" onclick="toggleChapter(this)">
+      <div class="chapter-header">
+         Chapitre 1 — Création
+        <i class="fa-solid fa-chevron-down"></i>
+      </div>
+      <div class="chapter-content">
+        La première faction est née après la grande guerre du royaume...
+      </div>
+    </div>
+
+    <div class="chapter" onclick="toggleChapter(this)">
+      <div class="chapter-header">
+         Chapitre 2 — Les bugs
+        <i class="fa-solid fa-chevron-down"></i>
+      </div>
+      <div class="chapter-content">
+        Une guerre secrète éclata dans les territoires nord...
+      </div>
+    </div>
+
+    <div class="chapter" onclick="toggleChapter(this)">
+      <div class="chapter-header">
+         Chapitre 3 — 
+        <i class="fa-solid fa-chevron-down"></i>
+      </div>
+      <div class="chapter-content">
+        L’énergie ancienne se réveilla et changea le destin du monde...
+      </div>
+    </div>
+
+  </div>
+</div>
+
+  <div id="armes" class="content-section">
+    <div class="card">
+     
+      <h1>Items</h1>
+      <p>Voici la liste complète des items disponibles:</p>
+      <p>1.les armes</p>
+<p>rien</p>
+<p>2.les véicules</p>
+    </div>
+  </div>
+
+  <div id="carte" class="content-section">
+    <div class="card">
+      <h1>Carte</h1>
+      <p>Description des zones importantes.</p>
+      <img src="https://imagnsplash.com/photo-1502920917128-1aa500764cbd" class="section-image">
+    </div>
+  </div>
+
+  <div id="logs" class="content-section">
+    <div class="logs">
+      <h1>Logs</h1>
+      <p>Incidents & bugs reportés</p>
+ <p>-----------------------------------</p>
+ <p>-Fonctionnement optimal</p>
+      
+    </div>
+  </div>
+
+
+  <div id="communaute" class="content-section">
+    <div class="card">
+      <h1>Communauté</h1>
+      <p>Rejoins notre Discord et participe aux événements.</p>
+      <img src="https://images.unsplash.com/photo-1614680376739-414d95ff43df" class="section-image">
+    </div>
+  </div>
+
+</div>
+</div>
+
+<script>
+function toggleChapter(element){
+
+  // Ferme tous les autres chapitres (comme Discord)
+  document.querySelectorAll(".chapter").forEach(ch => {
+    if(ch !== element){
+      ch.classList.remove("active");
+    }
+  });
+
+  element.classList.toggle("active");
+}
+function showSection(sectionId){
+  const sections = document.querySelectorAll('.content-section');
+  sections.forEach(section => {
+    section.classList.remove('active');
+  });
+
+  const activeSection = document.getElementById(sectionId);
+  if(activeSection){
+    activeSection.classList.add('active');
+  }
+}
+</script>
+
+</body>
+</html>
