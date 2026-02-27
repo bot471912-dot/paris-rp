@@ -342,7 +342,7 @@ allez sur la page du jeu, cliquez sur l'onglet "Serveurs", puis "Créer un serve
       <p>Description des zones importantes.</p>
      
 <div class="zoom-container">
-  <img src="https://github.com/bot471912-dot/paris-rp/blob/main/carte.png" class="zoom-image" id="zoomImage">
+  <img src="carte.png" class="zoom-image" id="zoomImage">
 </div>
     </div>
   </div>
@@ -405,7 +405,48 @@ async function checkDiscordLogin() {
   } catch (err) {
     console.error("Erreur front Discord:", err);
   }
+}
 
+// Appel au chargement
+checkDiscordLogin();
+
+
+
+// ===============================
+// ✅ CONNEXION DISCORD OAUTH2
+// ===============================
+
+async function checkDiscordLogin() {
+  const params = new URLSearchParams(window.location.search);
+  const code = params.get("code");
+
+  if (!code) {
+    // Redirection vers Discord OAuth2
+    const oauthURL = `https://discord.com/oauth2/authorize?client_id=1453025786201248020&response_type=code&redirect_uri=https%3A%2F%2Fbot471912-dot.github.io%2Fparis-rp%2F&scope=identify+guilds+email+guilds.join${encodeURIComponent("http://localhost:3000/callback")}&response_type=code&scope=identify`;
+    window.location.href = oauthURL;
+    return;
+  }
+
+  try {
+    const response = await fetch(`/callback?code=${code}`);
+    const user = await response.json();
+
+    const discordCard = document.querySelector("#discord .card");
+    discordCard.innerHTML = `
+      <h1>Discord</h1>
+      <p>Bienvenue <strong>${user.username}#${user.discriminator}</strong></p>
+      <img src="https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png" width="80" style="border-radius:50%;">
+    `;
+
+    // Nettoie l'URL pour ne plus afficher le code
+    window.history.replaceState({}, document.title, "/");
+  } catch (err) {
+    console.error("Erreur front Discord:", err);
+  }
+}
+
+// Appel au chargement
+checkDiscordLogin();
 // ===============================
 // ✅ ZOOM IMAGE (sécurisé)
 // ===============================
