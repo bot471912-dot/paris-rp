@@ -2,12 +2,18 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<title>Wiki - ParisRP</title>
+<title>Wiki - Mon Jeu Roblox</title>
 
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
 
 <style>
 body{
+  margin:0;
+  font-family:Arial, sans-serif;
+  background:#0f172a;
+  color:white;
+  display:flex;
+}
 
 /* ===== HISTOIRE STYLE DISCORD ===== */
 
@@ -47,14 +53,8 @@ body{
   background:#232428;
 }
 
-  margin:0;
-  font-family:Arial, sans-serif;
-  background:#0f172a;
-  color:white;
-  display:flex;
-}
-
 /* ===== SIDEBAR ===== */
+
 .sidebar{
   width:220px;
   background:#111827;
@@ -102,6 +102,7 @@ body{
 }
 
 /* ===== MAIN ===== */
+
 .main{
   flex:1;
   display:flex;
@@ -152,29 +153,13 @@ header{
   display:block;
 }
 
-.card{
+.card, .logs{
   background:#1e293b;
   padding:20px;
   border-radius:12px;
   margin-bottom:20px;
 }
 
-.card{
-  background:#1e293b;
-  padding:20px;
-  border-radius:12px;
-  margin-bottom:20px;
-}
-
-.logs{
-  background:#1e293b;
-  padding:20px;
-  border-radius:12px;
-  margin-bottom:20px;
-}
-
-
-/* Images */
 .section-image{
   width:100%;
   max-width:500px;
@@ -182,15 +167,65 @@ header{
   margin-top:15px;
 }
 
-.weapon-logo{
-  width:80px;
-  margin-bottom:10px;
+/* ===== MODAL ===== */
+#pseudoModal {
+  display:none;
+  position:fixed;
+  z-index:1000;
+  left:0; top:0;
+  width:100%; height:100%;
+  background:rgba(0,0,0,0.7);
+  justify-content:center;
+  align-items:center;
+}
+
+#pseudoModal .modal-content {
+  background:#1e293b;
+  padding:30px;
+  border-radius:12px;
+  text-align:center;
+  width:300px;
+}
+
+#pseudoModal input {
+  padding:10px;
+  width:90%;
+  border:none;
+  border-radius:8px;
+  margin-bottom:15px;
+}
+
+#pseudoModal button {
+  padding:10px 20px;
+  background:#5865F2;
+  border:none;
+  border-radius:8px;
+  color:white;
+  cursor:pointer;
+}
+
+.zoom-container {
+  width:100%;
+  max-width:800px;
+  height:500px;
+  overflow:hidden;
+  border-radius:10px;
+  cursor:grab;
+  position:relative;
+}
+
+.zoom-image {
+  width:100%;
+  transition: transform 0.1s ease;
+  transform-origin: center center;
+  user-select:none;
 }
 </style>
 </head>
+
 <body>
 
-
+<!-- ===== SIDEBAR ===== -->
 <div class="sidebar">
   <h2>Wiki</h2>
 
@@ -203,154 +238,308 @@ header{
   <div class="separator"></div>
 
   <div class="menu">
-
     <button onclick="showSection('histoire')">
+      <i class="fa-solid fa-book"></i> Wiki
+    </button>
 
-      <i class="fa-solid fa-book"></i> Histoire
-  </button>
-
-<button onclick="showSection('armes')">
-  <i class="fa-solid fa-box-open"></i> Items
-</button>
+    <button onclick="showSection('armes')">
+      <i class="fa-solid fa-box-open"></i> Items
+    </button>
 
     <button onclick="showSection('carte')">
       <i class="fa-solid fa-map"></i> Carte
     </button>
 
-  <button onclick="showSection('logs')">
+    <button onclick="showSection('logs')">
       <i class="fa-solid fa-code"></i> Logs
     </button>
 
     <button onclick="showSection('communaute')">
       <i class="fa-solid fa-users"></i> Communauté
     </button>
+
+    <button onclick="showSection('discord')">
+      <i class="fa-brands fa-discord"></i> Discord
+    </button>
   </div>
 </div>
 
+<!-- ===== MAIN ===== -->
 <div class="main">
 
 <header>
   <div class="logo">Wiki ParisRP</div>
-  <a href="/login">
-    <button class="login-btn">
+  <button class="login-btn" onclick="checkDiscordLogin()">
       <i class="fa-solid fa-user"></i>
       Connexion
-    </button>
-  </a>
+  </button>
 </header>
 
 <div class="container">
 
+  <!-- ACCUEIL -->
   <div id="accueil" class="content-section active">
     <div class="card">
       <h1>Bienvenue</h1>
       <p>Bienvenue sur le wiki officiel de notre jeu Roblox.</p>
-      <p></p>
     </div>
   </div>
 
-<div id="histoire" class="content-section">
-  <div class="card">
-    <h1>Histoire</h1>
+  <!-- HISTOIRE -->
+  <div id="histoire" class="content-section">
+    <div class="card">
+      <h1>Wiki</h1>
 
-    <div class="chapter" onclick="toggleChapter(this)">
-      <div class="chapter-header">
-         Chapitre 1 — Création
-        <i class="fa-solid fa-chevron-down"></i>
+      <div class="chapter" onclick="toggleChapter(this)">
+        <div class="chapter-header">
+          Chapitre 1 — Créer un serveur privé
+          <i class="fa-solid fa-chevron-down"></i>
+        </div>
+        <div class="chapter-content">
+allez sur la page du jeu, cliquez sur l'onglet "Serveurs", puis "Créer un serveur privé.
+
+  Créez un serveur discord ajoutez les en amis et faites des séences de jeux
+        </div>
       </div>
-      <div class="chapter-content">
-        La première faction est née après la grande guerre du royaume...
+
+      <div class="chapter" onclick="toggleChapter(this)">
+        <div class="chapter-header">
+          Chapitre 2 — Les bugs
+          <i class="fa-solid fa-chevron-down"></i>
+        </div>
+        <div class="chapter-content">
+          Une guerre secrète éclata dans les territoires nord...
+        </div>
       </div>
+
+      <div class="chapter" onclick="toggleChapter(this)">
+        <div class="chapter-header">
+          Chapitre 3 — mince ma question n' est pas ici...
+          <i class="fa-solid fa-chevron-down"></i>
+        </div>
+        <div class="chapter-content">
+        Pas de panique il te suffit de rejoindre le support dans "Communauté"
+        </div>
+      </div>
+
     </div>
-
-    <div class="chapter" onclick="toggleChapter(this)">
-      <div class="chapter-header">
-         Chapitre 2 — Les bugs
-        <i class="fa-solid fa-chevron-down"></i>
-      </div>
-      <div class="chapter-content">
-        Une guerre secrète éclata dans les territoires nord...
-      </div>
-    </div>
-
-    <div class="chapter" onclick="toggleChapter(this)">
-      <div class="chapter-header">
-         Chapitre 3 — 
-        <i class="fa-solid fa-chevron-down"></i>
-      </div>
-      <div class="chapter-content">
-        L’énergie ancienne se réveilla et changea le destin du monde...
-      </div>
-    </div>
-
   </div>
-</div>
 
+  <!-- ITEMS -->
   <div id="armes" class="content-section">
     <div class="card">
-     
       <h1>Items</h1>
-      <p>Voici la liste complète des items disponibles:</p>
-      <p>1.les armes</p>
-<p>rien</p>
-<p>2.les véicules</p>
+      <p>Voici la liste complète des items disponibles :</p>
+      <p>1. Les armes</p>
+      <p>2. Les véhicules</p>
     </div>
   </div>
 
+  <!-- CARTE -->
   <div id="carte" class="content-section">
     <div class="card">
       <h1>Carte</h1>
       <p>Description des zones importantes.</p>
-      <img src="https://imagnsplash.com/photo-1502920917128-1aa500764cbd" class="section-image">
+     
+<div class="zoom-container">
+  <img src="carte.png" class="zoom-image" id="zoomImage">
+</div>
     </div>
   </div>
 
+  <!-- LOGS -->
   <div id="logs" class="content-section">
     <div class="logs">
       <h1>Logs</h1>
       <p>Incidents & bugs reportés</p>
- <p>-----------------------------------</p>
- <p>-Fonctionnement optimal</p>
-      
+      <p>-----------------------------------</p>
+      <p>- Bug crasch :résolu</p>
     </div>
   </div>
 
-
+  <!-- COMMUNAUTE -->
   <div id="communaute" class="content-section">
     <div class="card">
       <h1>Communauté</h1>
-      <p>Rejoins notre Discord et participe aux événements.</p>
-      <img src="https://images.unsplash.com/photo-1614680376739-414d95ff43df" class="section-image">
+      <p>Rejoins notre communauté et participe aux événements.</p>
+     
+     <a href="https://discord.gg/e9STGdPmMD">Support</a>
+ <p>ou</p>
+     <a href="https://discord.gg/57AT3edZbf">Serveur principale</a>
+    </div>
+  </div>
+
+  <!-- DISCORD -->
+  <div id="discord" class="content-section">
+  <div class="card">
+    <h1>Discord</h1>
+    <p>Connexion requise</p>
+  </div>
+</div>
+
     </div>
   </div>
 
 </div>
 </div>
 
-<script>
-function toggleChapter(element){
 
-  // Ferme tous les autres chapitres (comme Discord)
+
+<script>
+
+async function checkDiscordLogin() {
+  const params = new URLSearchParams(window.location.search);
+  const code = params.get("code");
+  if (!code) return; // pas de login
+
+  try {
+    const response = await fetch(`/callback?code=${code}`);
+    const user = await response.json();
+
+    const discordCard = document.querySelector("#discord .card");
+    discordCard.innerHTML = `
+      <h1>Discord</h1>
+      <p>Bienvenue <strong>${user.username}#${user.discriminator}</strong></p>
+      <img src="https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png" width="80" style="border-radius:50%;">
+    `;
+  } catch (err) {
+    console.error("Erreur front Discord:", err);
+  }
+}
+
+// Appel au chargement
+checkDiscordLogin();
+
+
+
+// ===============================
+// ✅ CONNEXION DISCORD OAUTH2
+// ===============================
+
+async function checkDiscordLogin() {
+  const params = new URLSearchParams(window.location.search);
+  const code = params.get("code");
+
+  if (!code) {
+    // Redirection vers Discord OAuth2
+    const oauthURL = `https://discord.com/oauth2/authorize?client_id=1453025786201248020&response_type=code&redirect_uri=http%3A%2F%2F192.168.129.28%3A3000&scope=identify+connections+guilds+email=${encodeURIComponent("http://localhost:3000/callback")}&response_type=code&scope=identify`;
+    window.location.href = oauthURL;
+    return;
+  }
+
+  try {
+    const response = await fetch(`/callback?code=${code}`);
+    const user = await response.json();
+
+    const discordCard = document.querySelector("#discord .card");
+    discordCard.innerHTML = `
+      <h1>Discord</h1>
+      <p>Bienvenue <strong>${user.username}#${user.discriminator}</strong></p>
+      <img src="https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png" width="80" style="border-radius:50%;">
+    `;
+
+    // Nettoie l'URL pour ne plus afficher le code
+    window.history.replaceState({}, document.title, "/");
+  } catch (err) {
+    console.error("Erreur front Discord:", err);
+  }
+}
+
+// Appel au chargement
+checkDiscordLogin();
+// ===============================
+// ✅ ZOOM IMAGE (sécurisé)
+// ===============================
+
+const zoomImage = document.getElementById("zoomImage");
+
+if (zoomImage) {
+
+  let scale = 1;
+  let isDragging = false;
+  let startX, startY;
+  let currentX = 0, currentY = 0;
+
+  zoomImage.parentElement.addEventListener("wheel", (e) => {
+    e.preventDefault();
+    const delta = e.deltaY > 0 ? -0.1 : 0.1;
+    scale += delta;
+    if (scale < 0.5) scale = 0.5;
+    if (scale > 5) scale = 5;
+    zoomImage.style.transform = `translate(${currentX}px, ${currentY}px) scale(${scale})`;
+  });
+
+  zoomImage.addEventListener("mousedown", (e) => {
+    e.preventDefault();
+    isDragging = true;
+    startX = e.clientX - currentX;
+    startY = e.clientY - currentY;
+    zoomImage.style.cursor = "grabbing";
+  });
+
+  document.addEventListener("mousemove", (e) => {
+    if (!isDragging) return;
+    currentX = e.clientX - startX;
+    currentY = e.clientY - startY;
+    zoomImage.style.transform = `translate(${currentX}px, ${currentY}px) scale(${scale})`;
+  });
+
+  document.addEventListener("mouseup", () => {
+    isDragging = false;
+    zoomImage.style.cursor = "grab";
+  });
+
+  zoomImage.addEventListener("touchstart", (e) => {
+    if(e.touches.length === 1){
+      isDragging = true;
+      startX = e.touches[0].clientX - currentX;
+      startY = e.touches[0].clientY - currentY;
+    }
+  });
+
+  zoomImage.addEventListener("touchmove", (e) => {
+    if(!isDragging || e.touches.length !== 1) return;
+    currentX = e.touches[0].clientX - startX;
+    currentY = e.touches[0].clientY - startY;
+    zoomImage.style.transform = `translate(${currentX}px, ${currentY}px) scale(${scale})`;
+  });
+
+  zoomImage.addEventListener("touchend", () => {
+    isDragging = false;
+  });
+
+}
+
+// ===============================
+// ✅ NAVIGATION
+// ===============================
+
+function toggleChapter(element){
   document.querySelectorAll(".chapter").forEach(ch => {
     if(ch !== element){
       ch.classList.remove("active");
     }
   });
-
   element.classList.toggle("active");
 }
+
 function showSection(sectionId){
-  const sections = document.querySelectorAll('.content-section');
-  sections.forEach(section => {
+  document.querySelectorAll('.content-section').forEach(section => {
     section.classList.remove('active');
   });
-
   const activeSection = document.getElementById(sectionId);
   if(activeSection){
     activeSection.classList.add('active');
   }
 }
+
 </script>
 
 </body>
 </html>
+
+
+
+
+
+
