@@ -405,47 +405,7 @@ async function checkDiscordLogin() {
   } catch (err) {
     console.error("Erreur front Discord:", err);
   }
-}
 
-// Appel au chargement
-
-
-
-// ===============================
-// ✅ CONNEXION DISCORD OAUTH2
-// ===============================
-
-async function checkDiscordLogin() {
-  const params = new URLSearchParams(window.location.search);
-  const code = params.get("code");
-
-  if (!code) {
-    // Redirection vers Discord OAuth2
-    const oauthURL = `=${encodeURIComponent("")}&response_type=code&scope=identify`;
-    window.location.href = oauthURL;
-    return;
-  }
-
-  try {
-    const response = await fetch(`/callback?code=${code}`);
-    const user = await response.json();
-
-    const discordCard = document.querySelector("#discord .card");
-    discordCard.innerHTML = `
-      <h1>Discord</h1>
-      <p>Bienvenue <strong>${user.username}#${user.discriminator}</strong></p>
-      <img src="https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png" width="80" style="border-radius:50%;">
-    `;
-
-    // Nettoie l'URL pour ne plus afficher le code
-    window.history.replaceState({}, document.title, "/");
-  } catch (err) {
-    console.error("Erreur front Discord:", err);
-  }
-}
-
-// Appel au chargement
-checkDiscordLogin();
 // ===============================
 // ✅ ZOOM IMAGE (sécurisé)
 // ===============================
