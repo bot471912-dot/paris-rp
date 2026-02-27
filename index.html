@@ -422,7 +422,7 @@ async function checkDiscordLogin() {
 
   if (!code) {
     // Redirection vers Discord OAuth2
-    const oauthURL = `https://discord.com/oauth2/authorize?client_id=1453025786201248020&response_type=code&redirect_uri=http%3A%2F%2F192.168.129.28%3A3000&scope=identify+connections+guilds+email=${encodeURIComponent("http://localhost:3000/callback")}&response_type=code&scope=identify`;
+    const oauthURL = `=${encodeURIComponent("")}&response_type=code&scope=identify`;
     window.location.href = oauthURL;
     return;
   }
