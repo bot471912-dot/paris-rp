@@ -374,6 +374,15 @@ allez sur la page du jeu, cliquez sur l'onglet "Serveurs", puis "Créer un serve
   <div class="card">
     <h1>Discord</h1>
     <p>Connexion requise</p>
+
+<h2>Envoyer un message au serveur</h2>
+
+<input type="text" id="webhookUsername" placeholder="Ton pseudo Discord" style="padding:10px;width:100%;margin-bottom:10px;border-radius:8px;border:none;">
+<textarea id="webhookMessage" placeholder="Ton message..." style="padding:10px;width:100%;height:100px;border-radius:8px;border:none;margin-bottom:10px;"></textarea>
+
+<button onclick="sendWebhook()" style="padding:10px 20px;background:#5865F2;border:none;border-radius:8px;color:white;cursor:pointer;">
+  Envoyer
+</button>
   </div>
 </div>
 
