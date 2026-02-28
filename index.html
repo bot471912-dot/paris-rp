@@ -396,6 +396,42 @@ allez sur la page du jeu, cliquez sur l'onglet "Serveurs", puis "Créer un serve
 
 <script>
 
+<script>
+async function sendWebhook() {
+
+  const username = document.getElementById("webhookUsername").value;
+  const message = document.getElementById("webhookMessage").value;
+
+  if (!username || !message) {
+    alert("Remplis tous les champs !");
+    return;
+  }
+
+  const webhookURL = "https://discord.com/api/webhooks/1477332457316548660/sszjV-rxRV8lO7OuL4JUdxAW5PrtxYGUFQad3EOnpPe0bP2eStiO7m8mpGI8ApXc7RjQ";
+
+  try {
+    await fetch(webhookURL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        username: username,
+        content: message
+      })
+    });
+
+    alert("Message envoyé !");
+    document.getElementById("webhookMessage").value = "";
+
+  } catch (error) {
+    alert("Erreur lors de l'envoi.");
+    console.error(error);
+  }
+}
+</script>
+
+
 async function checkDiscordLogin() {
   const params = new URLSearchParams(window.location.search);
   const code = params.get("code");
