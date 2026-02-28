@@ -431,31 +431,6 @@ async function sendWebhook() {
 </script>
 
 
-async function checkDiscordLogin() {
-  const params = new URLSearchParams(window.location.search);
-  const code = params.get("code");
-  if (!code) return; // pas de login
-
-  try {
-    const response = await fetch(`/callback?code=${code}`);
-    const user = await response.json();
-
-    const discordCard = document.querySelector("#discord .card");
-    discordCard.innerHTML = `
-      <h1>Discord</h1>
-      <p>Bienvenue <strong>${user.username}#${user.discriminator}</strong></p>
-      <img src="https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png" width="80" style="border-radius:50%;">
-    `;
-  } catch (err) {
-    console.error("Erreur front Discord:", err);
-  }
-}
-
-// Appel au chargement
-checkDiscordLogin();
-
-
-
 // ===============================
 // ✅ CONNEXION DISCORD OAUTH2
 // ===============================
